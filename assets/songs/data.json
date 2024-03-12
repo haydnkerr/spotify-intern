@@ -1,0 +1,125 @@
+{
+    "haydn_profile": [
+        {
+            "song_id": "1",
+            "album_cover": "./assets/imgs/IMG_9507.heic",
+            "song_title": "Intro",
+            "artist_name": "Haydn Kerr",
+            "album_title": "Spotify Internship",
+            "length": "219",
+            "date_added": "Mar 11 2024",
+            "song_file": "./assets/songs/Avalanche.mp3"
+        },
+
+        {
+            "song_id": "2",
+            "album_cover": "./assets/imgs/IMG_9507.heic",
+            "song_title": "Why Me?",
+            "artist_name": "Haydn Kerr",
+            "album_title": "Spotify Internship",
+            "length": "174",
+            "date_added": "Mar 11 2024",
+            "song_file": "./assets/songs/Beatlejuice.mp3"
+        },
+
+        {
+            "song_id": "3",
+            "album_cover": "./assets/imgs/IMG_9507.heic",
+            "song_title": "Why Spotify?",
+            "artist_name": "Haydn Kerr",
+            "album_title": "Spotify Internship",
+            "length": "2:01",
+            "date_added": "Mar 11 2024",
+            "song_file": "./assets/songs/Delusional.mp3"
+        },
+
+        {
+            "song_id": "4",
+            "album_cover": "./assets/imgs/IMG_9507.heic",
+            "song_title": "My Background In Music",
+            "artist_name": "Haydn Kerr",
+            "album_title": "Spotify Internship",
+            "length": "2:17",
+            "date_added": "Mar 12 2024",
+            "song_file": "./assets/songs/Not Yours.mp3"
+        },
+
+        {
+            "song_id": "5",
+            "album_cover": "./assets/imgs/IMG_9507.heic",
+            "song_title": "Outro",
+            "artist_name": "Haydn Kerr",
+            "album_title": "Spotify Internship",
+            "length": "2:69",
+            "date_added": "Mar 12 2024",
+            "song_file": "./assets/songs/Tie Dyes And Adventure Times.mp3"
+        },
+
+        {
+            "song_id": "6",
+            "album_cover": "./assets/imgs/IMG_9507.heic",
+            "song_title": "Bonus Track",
+            "artist_name": "Haydn Kerr",
+            "album_title": "Spotify Internship",
+            "length": "2:43",
+            "date_added": "Mar 11 2024",
+            "song_file": "./assets/songs/Little Moment.mp3"
+        },
+        {
+            "song_id": "7",
+            "album_cover": "./assets/imgs/space-bg.png",
+            "song_title": "Cosmic Journey Project",
+            "artist_name": "Haydn Kerr",
+            "album_title": "Educational Website",
+            "length": "2:17",
+            "date_added": "Mar 12 2024",
+            "song_file": "./assets/songs/Not Yours.mp3"
+        },
+
+        {
+            "song_id": "8",
+            "album_cover": "./assets/imgs/connect-mockup.png",
+            "song_title": "Connect Four",
+            "artist_name": "Haydn Kerr",
+            "album_title": "Desktop Game",
+            "length": "2:69",
+            "date_added": "Mar 12 2024",
+            "song_file": "./assets/songs/Tie Dyes And Adventure Times.mp3"
+        },
+
+        {
+            "song_id": "9",
+            "album_cover": "./assets/imgs/hangman.png",
+            "song_title": "Hangman",
+            "artist_name": "Haydn Kerr",
+            "album_title": "Spotify Internship",
+            "length": "2:43",
+            "date_added": "Mar 11 2024",
+            "song_file": "./assets/songs/Little Moment.mp3"
+        },
+
+
+        {
+            "song_id": "10",
+            "album_cover": "./assets/imgs/memory.png",
+            "song_title": "Hangman",
+            "artist_name": "Haydn Kerr",
+            "album_title": "Spotify Internship",
+            "length": "2:43",
+            "date_added": "Mar 11 2024",
+            "song_file": "./assets/songs/Little Moment.mp3"
+        },
+
+
+        {
+            "song_id": "11",
+            "album_cover": "./assets/imgs/tictac.png",
+            "song_title": "Hangman",
+            "artist_name": "Haydn Kerr",
+            "album_title": "Spotify Internship",
+            "length": "2:43",
+            "date_added": "Mar 11 2024",
+            "song_file": "./assets/songs/Little Moment.mp3"
+        }
+    ]
+}
