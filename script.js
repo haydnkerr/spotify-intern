@@ -8,6 +8,7 @@ let songInterval;
 let songTotalLength = document.querySelector('.song-total-length')
 let songContainer;
 let leftSidebar = document.querySelector('.left-sidebar')
+let rightSidebar = document.querySelector('.right-sidebar')
 let nowPlayingArtist = document.querySelector('.now-playing-artist')
 let nowPlayingSong = document.querySelector('.now-playing-song')
 let nowPlayingAlbum = document.querySelector('.now-playing-cover')
@@ -150,6 +151,7 @@ function soundWaves() {
 
 // Play Song Functionality
 function playSong() {
+    rightSidebar.classList.add('right-sidebar-width')
     soundWaves()
     songStarted = true
     clearInterval(songInterval)
