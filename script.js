@@ -17,6 +17,15 @@ let currentMinutes = 0
 let songProgressionTracker = 0
 let bigPlayBtn = document.querySelector('.big-play-btn')
 let songStarted = false;
+let volumeSlider = document.getElementById("volume");
+
+
+// Volume Controls
+volumeSlider.addEventListener("input", function() {
+    let volumeValue = this.value;
+
+    audio.volume = volumeValue / 100;
+});
 
 // Update the seek bar as the audio plays
 audio.addEventListener('timeupdate', function () {
@@ -60,19 +69,23 @@ bigPlayBtn.addEventListener('click', function () {
 })
 
 pauseButton.addEventListener('click', function () {
-    nowPlayingAlbum.style.opacity = 1
-    if (audio.paused) {
-        audio.play();
-        songBar.max = Math.floor(audio.duration);
+    if (!songStarted) {
+        playSong()
+        bigPlayBtn.firstChild.src = "./assets/imgs/pause.png";
         pauseButton.firstChild.src = "./assets/imgs/pause.png";
-        songInterval = setInterval(songDuration, 1000)
-
+        songStarted = true
     } else {
-        audio.pause();
-        clearInterval(songInterval)
-        pauseButton.firstChild.src = "./assets/imgs/play.png";
+        if (audio.paused) {
+            audio.play();
+            bigPlayBtn.firstChild.src = "./assets/imgs/pause.png";
+            pauseButton.firstChild.src = "./assets/imgs/pause.png";
+        } else {
+            audio.pause();
+            clearInterval(songInterval)
+            pauseButton.firstChild.src = "./assets/imgs/play.png";
+            bigPlayBtn.firstChild.src = "./assets/imgs/play.png";
+        }
     }
-
 
 });
 
@@ -115,6 +128,8 @@ function soundWaves() {
 
 }
 
+
+// Play Song Functionality
 function playSong() {
     soundWaves()
     songStarted = true
