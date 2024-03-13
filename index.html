@@ -143,7 +143,7 @@
                     <div class="progression-bg"></div>
                     <div class="visible-progression">
                     </div>
-                    <input type="range" id="song-bar" value="" step="1" min="0" max="219">
+                    <input type="range" id="song-bar" value="" step="1" min="0" max="">
                 </div>
 
                 <p class="song-total-length"></p>
@@ -153,11 +153,16 @@
 
         </div>
 
-        <div class="volume-control">
-            <label for="volume">Volume:</label>
-            <input type="range" id="volume" name="volume" min="0" max="100" value="50">
-
+        <div class="volume-container">
+            <img src="./assets/imgs/sound-icon.png">
+            <div class="volume-control">
+                <div class="volume-bg"></div>
+                <div class="volume-progression"></div>
+                <input type="range" id="volume" name="volume" min="0" max="100" value="100" step="1">
+    
+            </div>
         </div>
+        
 
 
 

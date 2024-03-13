@@ -18,13 +18,15 @@ let songProgressionTracker = 0
 let bigPlayBtn = document.querySelector('.big-play-btn')
 let songStarted = false;
 let volumeSlider = document.getElementById("volume");
+let volumeProgression = document.querySelector('.volume-progression')
 
 
 // Volume Controls
-volumeSlider.addEventListener("input", function() {
+volumeSlider.addEventListener("input", function () {
     let volumeValue = this.value;
 
     audio.volume = volumeValue / 100;
+    volumeProgression.style.width = volumeValue + "%"
 });
 
 // Update the seek bar as the audio plays
@@ -36,7 +38,6 @@ audio.addEventListener('timeupdate', function () {
         currentSongTime.innerHTML = "0:" + currentSeconds
     }
     let conversionCounter = 100 / audio.duration
-    console.log(conversionCounter)
     songProgressionTracker = currentSeconds * conversionCounter
     songProgressionBar.style.width = (songProgressionTracker + 2) + "%"
     songBar.value = audio.currentTime
@@ -74,6 +75,7 @@ pauseButton.addEventListener('click', function () {
         bigPlayBtn.firstChild.src = "./assets/imgs/pause.png";
         pauseButton.firstChild.src = "./assets/imgs/pause.png";
         songStarted = true
+
     } else {
         if (audio.paused) {
             audio.play();
@@ -113,14 +115,14 @@ previousSongBtn.addEventListener('click', function () {
 });
 
 function soundWaves() {
-    for (let i = 1; i < songContainer.length; i++) {
+    for (let i = 0; i < songContainer.length; i++) {
         songContainer[i].firstChild.classList.add('display-none')
         songContainer[i].querySelector('p').classList.remove('display-none')
         songContainer[i].querySelector('.song-name').style.color = 'white'
-        if (i == songCounter) {
+        if (i == songCounter - 1) {
             songContainer[i].firstChild.classList.remove('display-none')
             songContainer[i].querySelector('p').classList.add('display-none')
-            songContainer[i].querySelector('.song-name').style.color ='#1de763'
+            songContainer[i].querySelector('.song-name').style.color = '#1de763'
         }
     }
 
@@ -140,6 +142,7 @@ function playSong() {
     currentSongMinutes = 0
     currentSongSeconds = 0
     currentSongTime.innerHTML = "0:00"
+
     songInterval = setInterval(songDuration, 1000)
     fetch('data.json')
         .then(response => {
@@ -155,26 +158,20 @@ function playSong() {
                     console.log(data.haydn_profile[i].song_file)
                     audio.src = data.haydn_profile[i].song_file;
                     audio.play();
-                    songBar.max = Math.floor(audio.duration);
+
                     audio.addEventListener("loadedmetadata", function () {
-                        console.log(audio.duration)
+        
                         let songTotal = Math.floor(audio.duration)
                         let minutes = Math.floor(songTotal / 60)
                         let seconds = songTotal % 60
-
+                        console.log("this is the length" + audio.duration)
+                        songBar.max = Math.floor(audio.duration);
+                        console.log(songBar.max)
                         songTotalLength.innerHTML = minutes + ":" + seconds
 
                     });
 
 
-
-                    console.log(songContainer[i].firstChild)
-                    // songContainer[i].firstChild.classList.remove('display-none')
-                    // songContainer[i].querySelector('p').classList.add('display-none')
-                    // songContainer[i - 1].firstChild.classList.add('display-none')
-                    // songContainer[i - 1].querySelector('p').classList.remove('display-none')
-                    // songContainer[i + 1].firstChild.classList.add('display-none')
-                    // songContainer[i + 1].querySelector('p').classList.remove('display-none')
                     nowPlayingArtist.innerHTML = data.haydn_profile[i].artist_name
                     nowPlayingSong.innerHTML = data.haydn_profile[i].song_title
                     nowPlayingAlbum.src = data.haydn_profile[i].album_cover
@@ -273,9 +270,14 @@ function populateSongs() {
                 albumCover.src = data.haydn_profile[i].album_cover
 
                 let songDetails = document.createElement('div')
-                let songName = document.createElement('p')
+                let songName = document.createElement('a')
                 songName.innerHTML = data.haydn_profile[i].song_title
                 songName.classList.add('song-name')
+                songName.href = data.haydn_profile[i].link
+                if (data.haydn_profile[i].link != "#") {
+                    songName.target = "_blank"
+                }
+
 
                 let artistName = document.createElement('p')
                 artistName.innerHTML = data.haydn_profile[i].artist_name
