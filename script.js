@@ -11,37 +11,75 @@ let leftSidebar = document.querySelector('.left-sidebar')
 let nowPlayingArtist = document.querySelector('.now-playing-artist')
 let nowPlayingSong = document.querySelector('.now-playing-song')
 let nowPlayingAlbum = document.querySelector('.now-playing-cover')
+let playSongBtnList;
+let songProgressionBar = document.querySelector('.visible-progression')
+let currentMinutes = 0
+let songProgressionTracker = 0
+let bigPlayBtn = document.querySelector('.big-play-btn')
+let songStarted = false;
 
-document.addEventListener('DOMContentLoaded', function () {
+// Update the seek bar as the audio plays
+audio.addEventListener('timeupdate', function () {
+    let currentSeconds = Math.floor(audio.currentTime)
+    if (currentSeconds < 10) {
+        currentSongTime.innerHTML = "0:0" + currentSeconds
+    } else {
+        currentSongTime.innerHTML = "0:" + currentSeconds
+    }
+    let conversionCounter = 100 / audio.duration
+    console.log(conversionCounter)
+    songProgressionTracker = currentSeconds * conversionCounter
+    songProgressionBar.style.width = (songProgressionTracker + 2) + "%"
+    songBar.value = audio.currentTime
+});
 
+// Update the audio playback position when the seek bar is changed
+songBar.addEventListener('change', function () {
+    audio.currentTime = songBar.value;
 
-    pauseButton.addEventListener('click', function () {
+});
+
+bigPlayBtn.addEventListener('click', function () {
+    if (!songStarted) {
+        playSong()
+        bigPlayBtn.firstChild.src = "./assets/imgs/pause.png";
+        pauseButton.firstChild.src = "./assets/imgs/pause.png";
+        songStarted = true
+    } else {
         if (audio.paused) {
             audio.play();
+            bigPlayBtn.firstChild.src = "./assets/imgs/pause.png";
             pauseButton.firstChild.src = "./assets/imgs/pause.png";
-            songInterval = setInterval(songDuration, 1000)
         } else {
             audio.pause();
             clearInterval(songInterval)
             pauseButton.firstChild.src = "./assets/imgs/play.png";
+            bigPlayBtn.firstChild.src = "./assets/imgs/play.png";
         }
+    }
+})
 
-        songContainer[songCounter - 1].firstChild.classList.remove('display-none')
-        songContainer[songCounter - 1].querySelector('p').classList.add('display-none')
-        songContainer[songCounter].firstChild.classList.add('display-none')
-        songContainer[songCounter].querySelector('p').classList.remove('display-none')
-    });
+pauseButton.addEventListener('click', function () {
+    nowPlayingAlbum.style.opacity = 1
+    if (audio.paused) {
+        audio.play();
+        songBar.max = Math.floor(audio.duration);
+        pauseButton.firstChild.src = "./assets/imgs/pause.png";
+        songInterval = setInterval(songDuration, 1000)
 
-    // Update the seek bar as the audio plays
-    audio.addEventListener('timeupdate', function () {
-        songBar.value = Math.floor(audio.currentTime);
-        currentSongTime.innerHTML = Math.floor(audio.currentTime)
-    });
+    } else {
+        audio.pause();
+        clearInterval(songInterval)
+        pauseButton.firstChild.src = "./assets/imgs/play.png";
+    }
 
-    // Update the audio playback position when the seek bar is changed
-    songBar.addEventListener('change', function () {
-        audio.currentTime = songBar.value;
-    });
+
+});
+
+
+audio.addEventListener('ended', function () {
+    songCounter += 1
+    playSong()
 });
 
 
@@ -61,8 +99,29 @@ previousSongBtn.addEventListener('click', function () {
     pauseButton.firstChild.src = "./assets/imgs/pause.png";
 });
 
+function soundWaves() {
+    for (let i = 1; i < songContainer.length; i++) {
+        songContainer[i].firstChild.classList.add('display-none')
+        songContainer[i].querySelector('p').classList.remove('display-none')
+        songContainer[i].querySelector('.song-name').style.color = 'white'
+        if (i == songCounter) {
+            songContainer[i].firstChild.classList.remove('display-none')
+            songContainer[i].querySelector('p').classList.add('display-none')
+            songContainer[i].querySelector('.song-name').style.color ='#1de763'
+        }
+    }
+
+
+
+}
+
 function playSong() {
+    soundWaves()
+    songStarted = true
     clearInterval(songInterval)
+    nowPlayingAlbum.style.opacity = 1
+    bigPlayBtn.firstChild.src = "./assets/imgs/pause.png";
+    pauseButton.firstChild.src = "./assets/imgs/pause.png";
     currentSongMinutes = 0
     currentSongSeconds = 0
     currentSongTime.innerHTML = "0:00"
@@ -75,11 +134,13 @@ function playSong() {
             return response.json();
         })
         .then(data => {
+
             for (let i = 0; i < data.haydn_profile.length; i++) {
                 if (data.haydn_profile[i].song_id == songCounter) {
                     console.log(data.haydn_profile[i].song_file)
                     audio.src = data.haydn_profile[i].song_file;
                     audio.play();
+                    songBar.max = Math.floor(audio.duration);
                     audio.addEventListener("loadedmetadata", function () {
                         console.log(audio.duration)
                         let songTotal = Math.floor(audio.duration)
@@ -93,10 +154,12 @@ function playSong() {
 
 
                     console.log(songContainer[i].firstChild)
-                    songContainer[i].firstChild.classList.remove('display-none')
-                    songContainer[i].querySelector('p').classList.add('display-none')
-                    songContainer[i - 1].firstChild.classList.add('display-none')
-                    songContainer[i - 1].querySelector('p').classList.remove('display-none')
+                    // songContainer[i].firstChild.classList.remove('display-none')
+                    // songContainer[i].querySelector('p').classList.add('display-none')
+                    // songContainer[i - 1].firstChild.classList.add('display-none')
+                    // songContainer[i - 1].querySelector('p').classList.remove('display-none')
+                    // songContainer[i + 1].firstChild.classList.add('display-none')
+                    // songContainer[i + 1].querySelector('p').classList.remove('display-none')
                     nowPlayingArtist.innerHTML = data.haydn_profile[i].artist_name
                     nowPlayingSong.innerHTML = data.haydn_profile[i].song_title
                     nowPlayingAlbum.src = data.haydn_profile[i].album_cover
@@ -104,12 +167,7 @@ function playSong() {
             }
 
 
-            for (let i = 0; i < songContainer.length; i++) {
-                if (songContainer[i + 1] == songCounter) {
-                    console.log(songContainer[i].firstChild)
-                    songContainer[i].firstChild.classList.remove('display-none')
-                }
-            }
+
 
         })
         .catch(error => {
@@ -168,7 +226,12 @@ function populateSongs() {
                 songCount.innerHTML = data.haydn_profile[i].song_id
                 songCount.classList.add('song-count')
 
-                let playBtn = document.createElement('img')
+                let playBtn = document.createElement('button')
+                let playBtnImg = document.createElement('img')
+                playBtnImg.src = "./assets/imgs/white-play-btn.png"
+                playBtn.appendChild(playBtnImg)
+                playBtn.classList.add("play-song-btn")
+                playBtn.value = data.haydn_profile[i].song_id
 
                 let soundBarContainer = document.createElement('div')
                 soundBarContainer.classList.add('sound-bar-container')
@@ -192,7 +255,7 @@ function populateSongs() {
 
                 let albumCover = document.createElement('img')
                 albumCover.classList.add('album-cover-img')
-                albumCover.src = nowPlayingAlbum.src = data.haydn_profile[i].album_cover
+                albumCover.src = data.haydn_profile[i].album_cover
 
                 let songDetails = document.createElement('div')
                 let songName = document.createElement('p')
@@ -206,19 +269,20 @@ function populateSongs() {
                 songDetails.appendChild(artistName)
 
                 let albumTitle = document.createElement('p')
-                albumTitle.classList.add('heading-opacity')
+                albumTitle.classList.add('heading-opacity', 'album-title')
                 albumTitle.innerHTML = data.haydn_profile[i].album_title
 
                 let dateAdded = document.createElement('p')
-                dateAdded.classList.add('heading-opacity')
+                dateAdded.classList.add('heading-opacity', 'date-added')
                 dateAdded.innerHTML = data.haydn_profile[i].date_added
 
                 let songLength = document.createElement('p')
-                songLength.classList.add('heading-opacity')
+                songLength.classList.add('heading-opacity', 'song-length')
                 songLength.innerHTML = data.haydn_profile[i].length
 
                 songContainer.appendChild(soundBarContainer)
                 songContainer.appendChild(songCount)
+                songContainer.appendChild(playBtn)
                 songContainer.appendChild(albumCover)
                 songContainer.appendChild(songDetails)
                 songContainer.appendChild(albumTitle)
@@ -232,14 +296,24 @@ function populateSongs() {
 
 
             songContainer = document.querySelectorAll('.song-container')
+            playSongBtnList = document.querySelectorAll('.play-song-btn')
 
-            console.log(data.haydn_profile[0].song_title)
-            console.log(songContainer[2])
+
+            playSongBtnList.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    songCounter = btn.value;
+                    console.log(songCounter);
+                    playSong()
+                });
+            });
+
         })
         .catch(error => {
             console.error('There was an error', error)
         })
 }
+
+
 
 
 // Get the draggable element
@@ -252,43 +326,43 @@ let startX, isDragging = false;
 draggableItem.addEventListener('mousedown', startDragging);
 
 function startDragging(event) {
-  // Calculate the initial position of the mouse
-  startX = event.clientX - draggableItem.getBoundingClientRect().left;
-  // Update dragging state
-  isDragging = true;
+    // Calculate the initial position of the mouse
+    startX = event.clientX - draggableItem.getBoundingClientRect().left;
+    // Update dragging state
+    isDragging = true;
 
-  // Add mousemove and mouseup event listeners
-  document.addEventListener('mousemove', dragItem);
-  document.addEventListener('mouseup', stopDragging);
+    // Add mousemove and mouseup event listeners
+    document.addEventListener('mousemove', dragItem);
+    document.addEventListener('mouseup', stopDragging);
 }
 
 function dragItem(event) {
-  if (isDragging) {
-    // Calculate the new position of the element
-    const newX = event.clientX - startX;
-    const minY = 0;
-    const maxY = window.innerWidth - draggableItem.offsetWidth;
+    if (isDragging) {
+        // Calculate the new position of the element
+        const newX = event.clientX - startX;
+        const minY = 0;
+        const maxY = window.innerWidth - draggableItem.offsetWidth;
 
-    // Restrict the item within the window bounds
-    const x = Math.max(minY, Math.min(maxY, newX));
+        // Restrict the item within the window bounds
+        const x = Math.max(minY, Math.min(maxY, newX));
 
-    // Set the new position
-    console.log(x)
-    // draggableItem.style.left = x + 'px';
-    if (x > 250) {
-        leftSidebar.style.width = "500px"
-    } else {
-        leftSidebar.style.width = "100px"
+        // Set the new position
+        console.log(x)
+        // draggableItem.style.left = x + 'px';
+        if (x > 250) {
+            leftSidebar.style.width = "500px"
+        } else {
+            leftSidebar.style.width = "100px"
+        }
     }
-  }
 }
 
 function stopDragging() {
-  // Update dragging state
-  isDragging = false;
+    // Update dragging state
+    isDragging = false;
 
-  // Remove mousemove and mouseup event listeners
-  document.removeEventListener('mousemove', dragItem);
-  document.removeEventListener('mouseup', stopDragging);
+    // Remove mousemove and mouseup event listeners
+    document.removeEventListener('mousemove', dragItem);
+    document.removeEventListener('mouseup', stopDragging);
 }
 

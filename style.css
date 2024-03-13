@@ -143,7 +143,7 @@ button {
 
 .sidebar-item img{
     width: 100%;
-    max-width: 75px;
+    max-width: 50px;
     aspect-ratio: 1/1;
     object-fit: cover;
     border-radius: 5px;
@@ -193,8 +193,8 @@ color: white;
     flex-direction: column;
 }
 .visible-progression {
-    width: 50%;
-    border-radius: 20px;;
+    width: 0%;
+    border-radius: 20px;
     height: 5px;
     background-color: white;
     
@@ -249,6 +249,50 @@ input[type="range"]::-webkit-slider-thumb {
 
 
 /******   Section for list of songs   *******/
+.big-play-btn {
+    background: #1ed760;
+    border: none;
+    border-radius: 50%;
+    width: 56px;
+    height: 56px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.big-play-btn:hover {
+    background: #1de763;
+    transform: scale(1.05);
+}
+.big-play-btn img {
+    width: 18px;
+}
+
+.song-list-headings {
+    font-size: 0.8rem;
+    display: grid;
+    /* grid-template-columns: 25px 15px 250px 200px 100px 50px; */
+    grid-template-columns: 25px 40px 6fr 3fr 3fr 2fr 30px;
+    /* grid-template-rows: 50px; */
+    /* width: 100%; */
+    gap: 10px;
+    min-height: 50px;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
+}
+
+.song-list-headings img {
+    width: 16px;
+
+}
+
+hr {
+    border: 0.5px solid rgb(116, 116, 116);
+    margin-bottom: 15px;
+}
+
 
 .song-list-container {
     background: rgba(255, 255, 255, 0.039);
@@ -296,6 +340,18 @@ input[type="range"]::-webkit-slider-thumb {
     object-fit: cover;
 }
 
+.play-song-btn {
+    background: none;
+    border: none;
+    display: none;
+}
+
+.play-song-btn img{
+    height: 17px
+}
+
+
+
 .song-container:hover .song-count {
     /* display: none; */
     background: url(./assets/imgs/previous-song-btn.png);
@@ -303,6 +359,14 @@ input[type="range"]::-webkit-slider-thumb {
     background-repeat: no-repeat;
     background-size: cover;
     display: none;
+}
+
+.song-container:hover .sound-bar-container {
+    display: none;
+}
+
+.song-container:hover .play-song-btn {
+    display: block;
 }
 
 .sound-bar-container {
@@ -387,6 +451,7 @@ footer {
     width: 60px;
     height: 60px;
     object-fit: cover;
+    opacity: 0;
 }
 
 .volume-control {
@@ -397,9 +462,68 @@ footer {
     display: none;
 }
 
+@media only screen and (max-width: 850px) {
+    .sidebar-title {
+        display: none;
+    }
 
-@media only screen and (max-width: 600px) {
+    .left-sidebar {
+        width: 140px
+    }
+
+    .sidebar-item img {
+        width: 100%;
+        max-width: 200px;
+    }
+}
+
+
+
+@media only screen and (max-width: 750px) {
+    .date-added {
+        display: none;
+    }
+
+    .song-container {
+        grid-template-columns: 25px 40px 3fr 3fr 1fr;
+    }
+}
+
+
+@media only screen and (max-width: 650px) {
     .left-sidebar {
         display: none
+    }
+
+    .song-length {
+        display: none;
+    }
+
+    .playlist-title-container img {
+        width: 150px;
+        height: 150px
+    }
+
+    .song-container {
+        grid-template-columns: 25px 40px 6fr 3fr;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .song-container {
+        grid-template-columns: 40px 6fr;
+    }
+
+    .playlist-title-container img {
+        width: 100px;
+        height: 100px
+    }
+
+    .song-count {
+        display: none;
+    }
+
+    .album-title {
+        display: none;
     }
 }
