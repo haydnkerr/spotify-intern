@@ -228,22 +228,6 @@ function songDuration() {
 }
 
 
-
-// let audio = document.getElementById('myAudio');
-// let toggleSongBtn = document.querySelector('.toggle-song-btn');
-
-// toggleSongBtn.addEventListener('click', function() {
-
-//         if (audio.paused) {
-//             audio.play();
-//             toggleSongBtn.textContent = "Pause Music";
-//         } else {
-//             audio.pause();
-//             toggleSongBtn.textContent = "Play Music";
-//         }
-//     });
-
-
 window.addEventListener("load", populateSongs)
 
 let songListContainer = document.querySelector('.song-list-container')
@@ -361,39 +345,32 @@ function populateSongs() {
 
 
 
-// Get the draggable element
-const draggableItem = document.querySelector('.width-adjuster');
+let draggableItem = document.querySelector('.width-adjuster');
 
-// Initialize variables to keep track of the position
 let startX, isDragging = false;
 
-// Add mousedown event listener to start dragging
 draggableItem.addEventListener('mousedown', startDragging);
 
 function startDragging(event) {
-    // Calculate the initial position of the mouse
     startX = event.clientX - draggableItem.getBoundingClientRect().left;
-    // Update dragging state
     isDragging = true;
 
-    // Add mousemove and mouseup event listeners
+  
     document.addEventListener('mousemove', dragItem);
     document.addEventListener('mouseup', stopDragging);
 }
 
 function dragItem(event) {
     if (isDragging) {
-        // Calculate the new position of the element
-        const newX = event.clientX - startX;
-        const minY = 0;
-        const maxY = window.innerWidth - draggableItem.offsetWidth;
 
-        // Restrict the item within the window bounds
-        const x = Math.max(minY, Math.min(maxY, newX));
+        let newX = event.clientX - startX;
+        let minY = 0;
+        let maxY = window.innerWidth - draggableItem.offsetWidth;
 
-        // Set the new position
-        console.log(x)
-        // draggableItem.style.left = x + 'px';
+        let x = Math.max(minY, Math.min(maxY, newX));
+
+
+
         if (x > 250) {
             leftSidebar.style.width = "500px"
         } else {
@@ -403,10 +380,8 @@ function dragItem(event) {
 }
 
 function stopDragging() {
-    // Update dragging state
     isDragging = false;
 
-    // Remove mousemove and mouseup event listeners
     document.removeEventListener('mousemove', dragItem);
     document.removeEventListener('mouseup', stopDragging);
 }

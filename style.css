@@ -222,7 +222,24 @@ color: white;
 
 }
 
-.bio-container img {
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+
+
+.social-img:hover {
+    transition: 0.2s;
+    transform: scale(1.15);
+
+}
+
+.bio-container > img {
     width: 100%;
     object-fit: contain;
     aspect-ratio: 1/1;
@@ -236,6 +253,11 @@ color: white;
 
 .bio-info p {
     color: #b3b3b3;
+}
+
+.social-img {
+    width: 20px;
+    height: 20px;
 }
 
 /******** Song Controls **********/
