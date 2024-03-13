@@ -19,6 +19,7 @@ let bigPlayBtn = document.querySelector('.big-play-btn')
 let songStarted = false;
 let volumeSlider = document.getElementById("volume");
 let volumeProgression = document.querySelector('.volume-progression')
+let playlistLength = 0
 
 
 // Volume Controls
@@ -37,13 +38,20 @@ audio.addEventListener('timeupdate', function () {
     } else {
         currentSongTime.innerHTML = "0:" + currentSeconds
     }
-    let conversionCounter = 100 / audio.duration
-    songProgressionTracker = currentSeconds * conversionCounter
-    songProgressionBar.style.width = (songProgressionTracker + 2) + "%"
+    let conversionCounter = 0;
+
+    audio.addEventListener("loadedmetadata", function () {
+        
+
+    })
+    conversionCounter = 100 / audio.duration
+    console.log("this is" + conversionCounter)
+    songProgressionTracker = audio.currentTime * conversionCounter
+    songProgressionBar.style.width = songProgressionTracker + "%"
     songBar.value = audio.currentTime
 });
 
-// Update the audio playback position when the seek bar is changed
+
 songBar.addEventListener('change', function () {
     audio.currentTime = songBar.value;
 
@@ -93,7 +101,11 @@ pauseButton.addEventListener('click', function () {
 
 
 audio.addEventListener('ended', function () {
-    songCounter += 1
+    if (songCounter == playlistLength) {
+        songCounter = 1;
+    } else {
+        songCounter += 1;
+    }
     playSong()
 });
 
@@ -101,7 +113,12 @@ audio.addEventListener('ended', function () {
 // Control Buttons Interface
 nextSongBtn.addEventListener('click', function () {
     clearInterval(songInterval)
-    songCounter += 1;
+    if (songCounter == playlistLength) {
+        songCounter = 1;
+    } else {
+        songCounter += 1;
+    }
+    
     playSong();
     pauseButton.firstChild.src = "./assets/imgs/pause.png";
 });
@@ -153,6 +170,10 @@ function playSong() {
         })
         .then(data => {
 
+            playlistLength = data.haydn_profile.length
+
+            console.log("lenght of playlist is " + playlistLength)
+
             for (let i = 0; i < data.haydn_profile.length; i++) {
                 if (data.haydn_profile[i].song_id == songCounter) {
                     console.log(data.haydn_profile[i].song_file)
@@ -160,14 +181,19 @@ function playSong() {
                     audio.play();
 
                     audio.addEventListener("loadedmetadata", function () {
-        
+
                         let songTotal = Math.floor(audio.duration)
                         let minutes = Math.floor(songTotal / 60)
                         let seconds = songTotal % 60
                         console.log("this is the length" + audio.duration)
                         songBar.max = Math.floor(audio.duration);
                         console.log(songBar.max)
-                        songTotalLength.innerHTML = minutes + ":" + seconds
+                        if (songTotal < 60) {
+                            songTotalLength.innerHTML = minutes + ":" + seconds
+                        } else {
+                            songTotalLength.innerHTML = minutes + ":0" + seconds
+                        }
+
 
                     });
 

@@ -42,7 +42,7 @@
             "song_title": "My Background In Music",
             "artist_name": "Haydn Kerr",
             "album_title": "Spotify Internship",
-            "length": "2:17",
+            "length": "0:36",
             "date_added": "Mar 12 2024",
             "song_file": "./assets/songs/music-background.mp3",
              "link": "#"
@@ -54,7 +54,7 @@
             "song_title": "Outro",
             "artist_name": "Haydn Kerr",
             "album_title": "Spotify Internship",
-            "length": "2:69",
+            "length": "0:21",
             "date_added": "Mar 12 2024",
             "song_file": "./assets/songs/outro.mp3",
              "link": "#"
@@ -62,61 +62,50 @@
 
         {
             "song_id": "6",
-            "album_cover": "./assets/imgs/cover.jpg",
-            "song_title": "Bonus Track",
-            "artist_name": "Haydn Kerr",
-            "album_title": "Spotify Internship",
-            "length": "2:43",
-            "date_added": "Mar 11 2024",
-            "song_file": "./assets/songs/Little Moment.mp3",
-             "link": "#"
-        },
-        {
-            "song_id": "7",
             "album_cover": "./assets/imgs/space-bg.png",
             "song_title": "Cosmic Journey Project",
             "artist_name": "Haydn Kerr",
             "album_title": "Educational Website",
-            "length": "2:17",
+            "length": "1:06",
             "date_added": "Mar 12 2024",
-            "song_file": "./assets/songs/Not Yours.mp3",
+            "song_file": "./assets/songs/space-audio.mp3",
              "link": "https://haydnkerr.github.io/interactive_solar_system/"
         },
 
         {
-            "song_id": "8",
+            "song_id": "7",
             "album_cover": "./assets/imgs/connect-mockup.png",
             "song_title": "Connect Four",
             "artist_name": "Haydn Kerr",
             "album_title": "Desktop Game",
-            "length": "2:69",
+            "length": "0:49",
             "date_added": "Mar 12 2024",
-            "song_file": "./assets/songs/Tie Dyes And Adventure Times.mp3",
+            "song_file": "./assets/songs/connect-audio.mp3",
              "link": "https://haydnkerr.github.io/connect-four/"
         },
 
         {
-            "song_id": "9",
+            "song_id": "8",
             "album_cover": "./assets/imgs/hangman.png",
             "song_title": "Hangman",
             "artist_name": "Haydn Kerr",
             "album_title": "Desktop Game",
-            "length": "2:43",
+            "length": "0:42",
             "date_added": "Mar 11 2024",
-            "song_file": "./assets/songs/Little Moment.mp3",
+            "song_file": "./assets/songs/hangman-audio.mp3",
              "link": "https://haydnkerr.github.io/challenges/hangman-game/starter-code/"
         },
 
 
         {
-            "song_id": "10",
+            "song_id": "9",
             "album_cover": "./assets/imgs/memory.png",
             "song_title": "Memory Game",
             "artist_name": "Haydn Kerr",
             "album_title": "Desktop Game",
-            "length": "2:43",
+            "length": "0:36",
             "date_added": "Mar 11 2024",
-            "song_file": "./assets/songs/Little Moment.mp3",
+            "song_file": "./assets/songs/memory-audio.mp3",
              "link": "https://haydnkerr.github.io/challenges/memory-game/starter-code/"
         }
     ]
