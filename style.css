@@ -662,11 +662,38 @@ footer {
     .song-container {
         grid-template-columns: 25px 40px 6fr 3fr;
     }
+
+    .right-sidebar-width {
+        width: 0px;
+        opacity: 0;
+        padding: 0px;
+    }
+}
+
+@media only screen and (max-width: 550px)  {
+    .volume-container {
+        display: none;
+    }
+
+    .now-playing-container {
+        display: none;
+    }
+
+    .song-control-interface {
+        width: 100%;
+        padding: 0px 15px;
+    }
+
+    .song-bar-container {
+        max-width: 350px;
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 @media only screen and (max-width: 450px) {
     .song-container {
-        grid-template-columns: 40px 6fr;
+        grid-template-columns: 10px 40px 6fr;
     }
 
     .playlist-title-container img {
@@ -674,11 +701,13 @@ footer {
         height: 100px
     }
 
-    .song-count {
-        display: none;
-    }
+
+
+
 
     .album-title {
         display: none;
     }
 }
+
+
