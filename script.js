@@ -46,7 +46,6 @@ audio.addEventListener('timeupdate', function () {
 
     })
     conversionCounter = 100 / audio.duration
-    console.log("this is" + conversionCounter)
     songProgressionTracker = audio.currentTime * conversionCounter
     songProgressionBar.style.width = songProgressionTracker + "%"
     songBar.value = audio.currentTime
@@ -122,12 +121,14 @@ nextSongBtn.addEventListener('click', function () {
     
     playSong();
     pauseButton.firstChild.src = "./assets/imgs/pause.png";
+    console.log(songCounter)
 });
 
 previousSongBtn.addEventListener('click', function () {
     clearInterval(songInterval)
-    if (songCounter > 1)
+    if (songCounter > 1){
         songCounter -= 1;
+    }
     playSong();
     pauseButton.firstChild.src = "./assets/imgs/pause.png";
 });
@@ -174,11 +175,8 @@ function playSong() {
 
             playlistLength = data.haydn_profile.length
 
-            console.log("lenght of playlist is " + playlistLength)
-
             for (let i = 0; i < data.haydn_profile.length; i++) {
                 if (data.haydn_profile[i].song_id == songCounter) {
-                    console.log(data.haydn_profile[i].song_file)
                     audio.src = data.haydn_profile[i].song_file;
                     audio.play();
 
@@ -187,9 +185,8 @@ function playSong() {
                         let songTotal = Math.floor(audio.duration)
                         let minutes = Math.floor(songTotal / 60)
                         let seconds = songTotal % 60
-                        console.log("this is the length" + audio.duration)
                         songBar.max = Math.floor(audio.duration);
-                        console.log(songBar.max)
+
                         if (songTotal < 60) {
                             songTotalLength.innerHTML = minutes + ":" + seconds
                         } else {
@@ -330,8 +327,8 @@ function populateSongs() {
 
             playSongBtnList.forEach(function (btn) {
                 btn.addEventListener('click', function () {
-                    songCounter = btn.value;
-                    console.log(songCounter);
+                    songCounter = parseInt(btn.value);
+                    songStarted = true
                     playSong()
                 });
             });
